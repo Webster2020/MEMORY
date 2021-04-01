@@ -18,6 +18,7 @@ let boardSize = "";
 function boardCreation (cardsAmount){ 
   /* results const */
   const score = document.querySelector(".score");
+  score.innerHTML = 0; 
   const highscore16 = document.querySelector(".highscore-16 .highscore");
   const highscore36 = document.querySelector(".highscore-36 .highscore");
   const winMessage = document.querySelector(".win-message");

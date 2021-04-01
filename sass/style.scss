@@ -62,7 +62,7 @@ body {
 .header { 
   margin: 50px auto 0 auto;
   height: 100px;
-  width: 400px;
+  max-width: 400px;
   font-size: 15px;
   .wrapper {
     font-size: 50px;
@@ -83,8 +83,6 @@ body {
   justify-content: space-around;
   align-items: center;
   position: relative;
-  min-height: 400px;
-  min-width: 400px;
   margin: 50px auto 50px auto;
   font-size: 20px;
   .win-message {
@@ -146,7 +144,7 @@ body {
     }
   }
   .card-not-shotted {
-    content: "";
+    
   }
   .card-shotted {
     visibility: hidden;
@@ -212,7 +210,7 @@ body {
     background-color: inherit;   
     .btn {
       background-color: inherit;
-      height: 90px;
+      height: 75px;
       width: 160px;
       font-family: inherit;
       font-size: 35px;
@@ -220,6 +218,51 @@ body {
     .cursor-on-btn {
       color: $color-four;
       font-weight: 900;
+    }
+  }
+}
+
+
+/* @MEDIA */
+
+@media (max-width: 576px) {
+  body {
+    background-color: #264653;
+  }
+  .game-board-size-16 {
+    height: 290px;
+    width: 290px;
+  }
+  .game-board-size-36 {
+    height: 370px;
+    width: 370px;
+  }
+  .game-board {
+    .card {
+      height: 58px;
+      width: 58px;
+    }
+  }
+  .results {
+    height: 490px;
+    .highscore-wrapper {
+      .highscore-16 {
+        .highscore-title {
+          font-size: 17px;
+        }
+      }
+      .highscore-36 {
+        .highscore-title {
+          font-size: 17px;
+        }
+      }  
+    }
+    .buttons {   
+      .btn {
+        height: 70px;
+        width: calc(100% - 20px);
+        font-size: 35px;
+      }
     }
   }
 }

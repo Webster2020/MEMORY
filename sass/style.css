@@ -49,7 +49,7 @@ body {
 .header {
   margin: 50px auto 0 auto;
   height: 100px;
-  width: 400px;
+  max-width: 400px;
   font-size: 15px;
 }
 
@@ -70,8 +70,6 @@ body {
   justify-content: space-around;
   align-items: center;
   position: relative;
-  min-height: 400px;
-  min-width: 400px;
   margin: 50px auto 50px auto;
   font-size: 20px;
 }
@@ -138,10 +136,6 @@ body {
   background-color: black;
   opacity: 0.2;
   z-index: 1;
-}
-
-.game-board .card-not-shotted {
-  content: "";
 }
 
 .game-board .card-shotted {
@@ -223,7 +217,7 @@ body {
 
 .results .buttons .btn {
   background-color: inherit;
-  height: 90px;
+  height: 75px;
   width: 160px;
   font-family: inherit;
   font-size: 35px;
@@ -232,4 +226,37 @@ body {
 .results .buttons .cursor-on-btn {
   color: tomato;
   font-weight: 900;
+}
+
+/* @MEDIA */
+@media (max-width: 576px) {
+  body {
+    background-color: #264653;
+  }
+  .game-board-size-16 {
+    height: 290px;
+    width: 290px;
+  }
+  .game-board-size-36 {
+    height: 370px;
+    width: 370px;
+  }
+  .game-board .card {
+    height: 58px;
+    width: 58px;
+  }
+  .results {
+    height: 490px;
+  }
+  .results .highscore-wrapper .highscore-16 .highscore-title {
+    font-size: 17px;
+  }
+  .results .highscore-wrapper .highscore-36 .highscore-title {
+    font-size: 17px;
+  }
+  .results .buttons .btn {
+    height: 70px;
+    width: calc(100% - 20px);
+    font-size: 35px;
+  }
 }
