@@ -1,5 +1,3 @@
-'use strict'
-
 /*===============================================================*/
 /*===============================================================*/
 /*=========================  G A M E  ===========================*/
@@ -15,10 +13,10 @@
 let creatProcess = false;
 let boardSize = "";
 
-function boardCreation (cardsAmount){ 
+function boardCreation (cardsAmount) { 
   /* results const */
   const score = document.querySelector(".score");
-  score.innerHTML = 0; 
+  score.innerHTML = 0; //clear score 31.03.2021 CHANGED !!!
   const highscore16 = document.querySelector(".highscore-16 .highscore");
   const highscore36 = document.querySelector(".highscore-36 .highscore");
   const winMessage = document.querySelector(".win-message");
@@ -26,7 +24,7 @@ function boardCreation (cardsAmount){
   
   const gameBoard = document.querySelector(".game-board");
   gameBoard.classList.remove("game-board-invisible");
-  console.log(gameBoard.outerHTML);
+  //DELETED CONSOLLOG 31.03.2021 CHANGED !!!
   if (creatProcess == true) {
     for (let i = 0; i < boardSize; i++) {
       const tester = gameBoard.children[0];
@@ -56,14 +54,18 @@ function boardCreation (cardsAmount){
     /* function to generate array witch random colors (lenght of array in variable) */
     if (i == 0 || i % 2 === 0) {
       const color = Math.floor(Math.random()*16777215).toString(16);
-      colorArr.push("#" + color);
+      if (color.length == 5) {
+        colorArr.push("#" + color + "0");
+      } else {
+        colorArr.push("#" + color);
+      };
     }
   }
   gameBoard.insertAdjacentHTML("afterbegin", cardsHtml.join(""));
-  /* creating finally array of colors */
+  /* creating finally array ofcolors */
   const doubleColorArr = colorArr.concat(colorArr);
   
-  const cards = document.querySelectorAll(".card");
+  const cards = document.querySelectorAll(".card"); //(finally to .card-visible)
   /* creating array of zeros */
   const finallColorArr = [];
   for (let j = 0; j < doubleColorArr.length; j++) {
@@ -72,85 +74,90 @@ function boardCreation (cardsAmount){
   
   /* lottery of pairs of colors */
   const sizeOfArray = doubleColorArr.length;
-  
+ 
   while (doubleColorArr.length > 0){
     let cardColorPosition = Math.floor(Math.random() * sizeOfArray);
-    if (finallColorArr[cardColorPosition] != 0) {
-      cardColorPosition = Math.floor(Math.random() * sizeOfArray);
-    } else {
+    if (finallColorArr[cardColorPosition] == 0 && cardColorPosition < sizeOfArray){
       finallColorArr[cardColorPosition] = doubleColorArr.pop();
     }
   }
+  
   /* adding colors to cards */
   let k = 0;
   for (let card of cards) {
     card.style.backgroundColor = finallColorArr[k];
-    k++;;
+    k++;
   }
 
 /*--------------------------------------------------*/
 /*--------------- EVENTS FOR CARDS -----------------*/
 /*--------------------------------------------------*/
-
+  let cardOneColor = '';
+  let cardTwoColor = '';
+  
   function cardClickHandler(event) {
     event.stopPropagation();
-    //event.target.classList.toggle("card-visible");
-    event.target.classList.toggle("card-invisible");
-    clickCounter++;
-    /* getting color value of curent clicked card (in first click and second click)*/
-    if (clickCounter == 1) {
-      cardOne = event.target;
-      /* remove cardClickHandler on clcked card*/
-      cardOne.removeEventListener("click", cardClickHandler);
-      /*----*/
-    } else if (clickCounter == 2) {
-      cardTwo = event.target;
-      /* remove cardClickHandler on clcked card*/
-      cardOne.removeEventListener("click", cardClickHandler);
-      movesCounter++;
-      score.innerHTML = movesCounter;
-      /* check is two clicked card has the same color */
-      if (cardOne.getAttribute("style") == cardTwo.getAttribute("style")) {
-        cardOne.classList.toggle("card-shotted");
-        cardOne.classList.remove("card-not-shotted");
-        cardTwo.classList.toggle("card-shotted");
-        cardTwo.classList.remove("card-not-shotted");
-        /* winning "click" counter */
-        shottedCounter++;
-        if (shottedCounter == cardsAmount * 0.5) {
-          /* add highscore16 to HTML */
-          if ((cardsAmount == 16) && (highscore16.innerHTML > movesCounter)) {
-            highscore16.innerHTML = movesCounter;
-            /*WINNING MESSAGE*/
-            winMessage.classList.toggle("win-message-visible");
-            winMessage.classList.toggle("win-message-invisible");
-            msgScore.innerHTML = movesCounter;
-            /* clearing curent score in HTML */
-            score.innerHTML = "0";
-          }
-          /* add highscore16 to HTML */
-          if ((cardsAmount == 36) && (highscore36.innerHTML > movesCounter)) {
-            highscore36.innerHTML = movesCounter;
-            /*WINNING MESSAGE*/
-            winMessage.classList.toggle("win-message-visible");
-            winMessage.classList.toggle("win-message-invisible");
-            msgScore.innerHTML = movesCounter;
-            /* clearing curent score in HTML */
-            score.innerHTML = "0";      
-          }
+        //event.target.classList.toggle("card-visible");
+        event.target.classList.toggle("card-invisible");
+        clickCounter++;
+        /* getting color value of curent clicked card (in first click and second click)*/
+        if (clickCounter == 1) {
+          cardOne = event.target;
+          cardOneColor = cardOne.getAttribute("style");
+          /* remove cardClickHandler on clcked card*/
+          cardOne.removeEventListener("click", cardClickHandler);
+          /*----*/
+        } else if (clickCounter == 2) {
+          cardTwo = event.target;
+          cardTwoColor = cardTwo.getAttribute("style");
+          /* remove cardClickHandler on clcked card*/
+          cardOne.removeEventListener("click", cardClickHandler);
+          movesCounter++;
+          score.innerHTML = movesCounter;
+          console.log('cardOne:', cardOneColor)
+          console.log('cardTwo:', cardTwoColor)
+          /* check is two clicked card has the same color */
+          if (cardOneColor == cardTwoColor) {
+            cardOne.classList.toggle("card-shotted");
+            cardOne.classList.remove("card-not-shotted");
+            cardTwo.classList.toggle("card-shotted");
+            cardTwo.classList.remove("card-not-shotted");
+            /* winning "click" counter */
+            shottedCounter++;
+            if (shottedCounter == cardsAmount * 0.5) {
+              /* add highscore16 to HTML */
+              if ((cardsAmount == 16) && (highscore16.innerHTML > movesCounter)) {
+                highscore16.innerHTML = movesCounter;
+                /*WINNING MESSAGE*/
+                winMessage.classList.toggle("win-message-visible");
+                winMessage.classList.toggle("win-message-invisible");
+                msgScore.innerHTML = movesCounter;
+                /* clearing curent score in HTML */
+                score.innerHTML = "0";
+              }
+              /* add highscore16 to HTML */
+              if ((cardsAmount == 36) && (highscore36.innerHTML > movesCounter)) {
+                highscore36.innerHTML = movesCounter;
+                /*WINNING MESSAGE*/
+                winMessage.classList.toggle("win-message-visible");
+                winMessage.classList.toggle("win-message-invisible");
+                msgScore.innerHTML = movesCounter;
+                /* clearing curent score in HTML */
+                score.innerHTML = "0";      
+              }
+            }
+          } 
         }
-      } 
-    }
 
-    /* hidding visibility of cards after second "click" */ 
-    if (clickCounter > 2) {      
-      clickCounter = 0;
-      for (let card of cards) {
-      card.classList.add("card-invisible");
-      cardOne.addEventListener("click", cardClickHandler); // NEW !!!!
-      }   
-    }
-  }
+        /* hidding visibility of cards after second "click" */ 
+        if (clickCounter > 2) {      
+          clickCounter = 0;
+          for (let card of cards) {
+          card.classList.add("card-invisible");
+          cardOne.addEventListener("click", cardClickHandler); // NEW !!!!
+          }   
+        }
+   }
   
   let clickCounter = 0;
   let shottedCounter = 0;
@@ -160,17 +167,17 @@ function boardCreation (cardsAmount){
   
   for (let card of cards) {
   
-    card.addEventListener("click", cardClickHandler);
+      card.addEventListener("click", cardClickHandler);
 
-    card.addEventListener("mouseover", (event) => {
-      event.stopPropagation();
-      event.target.classList.add("cursor-on-card");
-    });
+      card.addEventListener("mouseover", (event) => {
+        event.stopPropagation();
+        event.target.classList.add("cursor-on-card");
+      });
 
-    card.addEventListener("mouseout", (event) => {
-      event.stopPropagation();
-      event.target.classList.remove("cursor-on-card");
-    });
+      card.addEventListener("mouseout", (event) => {
+        event.stopPropagation();
+        event.target.classList.remove("cursor-on-card");
+      });
   }  
 } // board creation END
 

@@ -62,7 +62,7 @@ body {
 .header { 
   margin: 50px auto 0 auto;
   height: 100px;
-  max-width: 400px;
+  max-width: 400px; // >>>>>>>> 31.03.2021 CHANGED !!!
   font-size: 15px;
   .wrapper {
     font-size: 50px;
@@ -83,6 +83,8 @@ body {
   justify-content: space-around;
   align-items: center;
   position: relative;
+  //min-height: 400px;
+  //min-width: 400px;
   margin: 50px auto 50px auto;
   font-size: 20px;
   .win-message {
@@ -90,6 +92,7 @@ body {
       font-size: 55px;
       font-weight: 900;
       margin: 0;
+      line-height: 0.5;
     }
     .msg-score {
       display: block;
@@ -108,6 +111,7 @@ body {
   .win-message-visible {
     display: block;
     position: absolute;
+    width: 90%;
     top: 48%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -210,7 +214,7 @@ body {
     background-color: inherit;   
     .btn {
       background-color: inherit;
-      height: 75px;
+      height: 75px; // >>>>>>>> 31.03.2021 CHANGED !!!
       width: 160px;
       font-family: inherit;
       font-size: 35px;
@@ -225,33 +229,43 @@ body {
 
 /* @MEDIA */
 
-@media (max-width: 576px) {
+@media (max-width: 1200px) {
   body {
     background-color: #264653;
   }
+  /* HEADER */
+  .header { 
+    max-width: 60vw; //400px;
+  }
+  /* GAME BOARD */
   .game-board-size-16 {
-    height: 290px;
-    width: 290px;
+    height: 60vw; //290px;
+    width: 60vw; //290px;
   }
   .game-board-size-36 {
-    height: 370px;
-    width: 370px;
+    height: 75vw; //370px;
+    width: 75vw; //370px;
   }
   .game-board {
     .card {
-      height: 58px;
-      width: 58px;
+      height: 12vw; //58px;
+      width: 12vw; //58px;
     }
   }
   .results {
-    height: 490px;
+    margin: 50px auto 50px auto;
+    height: 470px;
+    width: 60vw;
+    font-size: 15px;
     .highscore-wrapper {
       .highscore-16 {
+        width: 50%;
         .highscore-title {
           font-size: 17px;
         }
       }
       .highscore-36 {
+        width: 50%;
         .highscore-title {
           font-size: 17px;
         }
@@ -259,11 +273,17 @@ body {
     }
     .buttons {   
       .btn {
-        height: 70px;
+        height: 70px; // >>>>>>>> 31.03.2021 CHANGED !!!
         width: calc(100% - 20px);
         font-size: 35px;
       }
     }
+  }
+}
+
+@media (max-width: 490px) {
+  .results {
+    height: 500px;
   }
 }
 
