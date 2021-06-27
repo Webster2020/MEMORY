@@ -6,7 +6,7 @@ MEMORY is aplication to play nad fun. I created it to train my skills in basic h
 ![](MEMORY.gif)
 
 ## Link
-https://webster2020.github.io/BMI_CALCULATOR/
+https://webster2020.github.io/MEMORY/
 
 ## Getting Started
 1. git clone git@github.com:Webster2020/MEMORY.git
