@@ -1,10 +1,3 @@
-/*===============================================================*/
-/*===============================================================*/
-/*=========================  G A M E  ===========================*/
-/*===============================================================*/
-/*===============================================================*/
-
-
 /*---------------------------------------------------*/
 /*------------------ CREATING BOARD -----------------*/
 /*---------------------------------------------------*/
@@ -16,7 +9,7 @@ let boardSize = "";
 function boardCreation (cardsAmount) { 
   /* results const */
   const score = document.querySelector(".score");
-  score.innerHTML = 0; //clear score 31.03.2021 CHANGED !!!
+  score.innerHTML = 0;
   const highscore16 = document.querySelector(".highscore-16 .highscore");
   const highscore36 = document.querySelector(".highscore-36 .highscore");
   const winMessage = document.querySelector(".win-message");
@@ -24,7 +17,7 @@ function boardCreation (cardsAmount) {
   
   const gameBoard = document.querySelector(".game-board");
   gameBoard.classList.remove("game-board-invisible");
-  //DELETED CONSOLLOG 31.03.2021 CHANGED !!!
+
   if (creatProcess == true) {
     for (let i = 0; i < boardSize; i++) {
       const tester = gameBoard.children[0];
@@ -51,7 +44,7 @@ function boardCreation (cardsAmount) {
   let colorArr = [];
   for (let i = 0; i < cardsAmount; i++) {
     cardsHtml.push(cardHtml);
-    /* function to generate array witch random colors (lenght of array in variable) */
+    /* function to generate array with random colors (lenght of array in variable) */
     if (i == 0 || i % 2 === 0) {
       const color = Math.floor(Math.random()*16777215).toString(16);
       if (color.length == 5) {
@@ -62,17 +55,17 @@ function boardCreation (cardsAmount) {
     }
   }
   gameBoard.insertAdjacentHTML("afterbegin", cardsHtml.join(""));
-  /* creating finally array ofcolors */
+  /* creating finally array of colors */
   const doubleColorArr = colorArr.concat(colorArr);
   
-  const cards = document.querySelectorAll(".card"); //(finally to .card-visible)
+  const cards = document.querySelectorAll(".card");
   /* creating array of zeros */
   const finallColorArr = [];
   for (let j = 0; j < doubleColorArr.length; j++) {
     finallColorArr.push(0);
   }
   
-  /* lottery of pairs of colors */
+  /* draw pairs of colors */
   const sizeOfArray = doubleColorArr.length;
  
   while (doubleColorArr.length > 0){
@@ -92,25 +85,26 @@ function boardCreation (cardsAmount) {
 /*--------------------------------------------------*/
 /*--------------- EVENTS FOR CARDS -----------------*/
 /*--------------------------------------------------*/
+
   let cardOneColor = '';
   let cardTwoColor = '';
   
   function cardClickHandler(event) {
     event.stopPropagation();
-        //event.target.classList.toggle("card-visible");
+        /* event.target.classList.toggle("card-visible"); */
         event.target.classList.toggle("card-invisible");
         clickCounter++;
         /* getting color value of curent clicked card (in first click and second click)*/
         if (clickCounter == 1) {
           cardOne = event.target;
           cardOneColor = cardOne.getAttribute("style");
-          /* remove cardClickHandler on clcked card*/
+          /* remove cardClickHandler from clcked card*/
           cardOne.removeEventListener("click", cardClickHandler);
           /*----*/
         } else if (clickCounter == 2) {
           cardTwo = event.target;
           cardTwoColor = cardTwo.getAttribute("style");
-          /* remove cardClickHandler on clcked card*/
+          /* remove cardClickHandler from clcked card*/
           cardOne.removeEventListener("click", cardClickHandler);
           movesCounter++;
           score.innerHTML = movesCounter;
@@ -154,7 +148,7 @@ function boardCreation (cardsAmount) {
           clickCounter = 0;
           for (let card of cards) {
           card.classList.add("card-invisible");
-          cardOne.addEventListener("click", cardClickHandler); // NEW !!!!
+          cardOne.addEventListener("click", cardClickHandler);
           }   
         }
    }
